@@ -1,0 +1,6 @@
+geopandas==0.9.0
+pandas==1.2.4
+matplotlib==3.4.1
+pyproj==3.0.1
+Fiona==1.8.19
+
