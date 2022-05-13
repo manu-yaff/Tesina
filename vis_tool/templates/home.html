@@ -1,0 +1,44 @@
+<form action="{% url 'generate-map' %}" method="POST" enctype="multipart/form-data">
+	{% csrf_token %}
+	<h1>File</h1>
+	<div>
+		<label for="file">File</label>
+		{{ form.populations_file }}
+	</div>
+
+	<h1>Bounding box</h1>
+	<!-- <div> -->
+	<!-- 	<label for="boundingBoxWidth">Bounding box width</label> -->
+	<!-- 	{{ form.bounding_box_width }} -->
+	<!-- </div> -->
+	<!-- <div> -->
+	<!-- 	<label for="boundingBoxHeight">Bounding box height</label> -->
+	<!-- 	{{ form.bounding_box_height }} -->
+	<!-- </div> -->
+
+	<h1>Map shape plot</h1>
+	<div>
+		<label for="">Face Color</label>
+		{{ form.map_shape_face_color }}
+	</div>
+	<div>
+		<label for="">Edge Color</label>
+		{{ form.map_shape_edge_color }}
+	</div>
+	</div>
+
+	<h1>Populations color</h1>
+	<div>
+		<label for="">Populations color</label>
+		{{ form.populations_color }}
+	</div>
+	</div>
+
+	<h1>Clusters color</h1>
+	<div>
+		<label for="">Clusters color</label>
+		{{ form.clusters_color }}
+	</div>
+	<button type="submit">Generate map</button>
+</form>
+<a href="{% url 'simulation' %}">Realizar simulación</a>
