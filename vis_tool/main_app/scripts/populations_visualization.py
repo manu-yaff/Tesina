@@ -74,16 +74,38 @@ def generate_plot(map_shape, geo_populations, populations, centroids, geo_centro
     :param populations: populations data frame
     :param centroids: centroids points and their coordinates
     """
-    fig, ax = plt.subplots(figsize=(6,6))
-    map_shape.plot(ax=ax, alpha=0.4, figsize=(20, 15), edgecolor=visualization_config['map_shape_edge_color'], facecolor=visualization_config['map_shape_face_color'])
-    geo_populations.plot(ax=ax, markersize=20, color=visualization_config['populations_color'], marker="o", label="Population")
+    fig, ax = plt.subplots(figsize=(
+            int(visualization_config['bounding_box_width']),
+            int(visualization_config['bounding_box_height'])
+        )
+    )
+    map_shape.plot(
+            ax=ax,
+            alpha=0.4,
+            figsize=(20, 15),
+            edgecolor=visualization_config['map_shape_edge_color'],
+            facecolor=visualization_config['map_shape_face_color']
+    )
+    geo_populations.plot(
+            ax=ax,
+            markersize=20,
+            color=visualization_config['populations_color'],
+            marker="o",
+            label="Population"
+    )
     pointLabel = 0
     for i in range(len(populations)):
         point = populations.iloc[i]
         plt.text(point["lon"], point["lat"], str(pointLabel), color=(0.4, 0.2, 0.5, 0.2), fontsize=6)
         pointLabel += 1
 
-    geo_centroids.plot(ax=ax, markersize=60, color=visualization_config['clusters_color'], marker="X", label="Cluster")
+    geo_centroids.plot(
+            ax=ax,
+            markersize=60,
+            color=visualization_config['clusters_color'],
+            marker="X",
+            label="Cluster"
+    )
 
     for coordinate in centroids[1]:
         plt.text(coordinate[1], coordinate[2], coordinate[0], color="black", fontsize=8)
