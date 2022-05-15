@@ -1,3 +1,11 @@
 .venv
 .DS_Store
+output.mp4
+frames/
+__pycache__/
+vis_tool/media/
+*.log
+*.pot
+*.pyc
+db.sqlite3
 

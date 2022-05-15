@@ -1,8 +1,9 @@
 from django.shortcuts import render
 from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
-from .forms import VisualizationForm
 from django.conf import settings
+from .scripts.populations_visualization import something
+from .forms import VisualizationForm
 import os
 
 # Create your views here.
@@ -14,15 +15,26 @@ def home(request):
 def generate_map(request):
     if request.method == 'POST':
         form = request.POST
-        file = request.FILES['populations_file']
-        file_location = settings.MEDIA_ROOT + '/' + file.name
-        print('este es el path')
-        print(file_location)
-        if(os.path.exists(file_location)):
-            os.remove(file_location)
+
+        populations_file = request.FILES['populations_file']
+        populations_file_location = settings.MEDIA_ROOT + '/' + populations_file.name
+
+        clusters_file = request.FILES['clusters_file']
+        clusters_file_location = settings.MEDIA_ROOT + '/' + clusters_file.name
+
+        if(os.path.exists(populations_file_location)):
+            os.remove(populations_file_location)
+
+        if(os.path.exists(clusters_file_location)):
+            os.remove(clusters_file_location)
+
+
         fs = FileSystemStorage()
-        fs.save(file.name, file)
-        # plot_graph(form)
+
+        fs.save('populations.csv', populations_file)
+        fs.save('clusters.bz', clusters_file)
+
+        something(form)
     return HttpResponse('Aqui se genera el mapa con los parametros')
 
 def simulation(request):

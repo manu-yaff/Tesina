@@ -1,11 +1,13 @@
-from utils import *
+from .utils import *
 import matplotlib.pyplot as plt
 import geopandas as gpd
 import pandas as pd
 import bz2
 import _pickle as cPickle
+import multiprocessing as mp
 from shapely.geometry import Point, Polygon
 from pyproj import CRS
+from django.conf import settings
 
 def generate_geo_populations_data_frame(populations, crs):
     """
@@ -90,12 +92,14 @@ def generate_plot(map_shape, geo_populations, populations, centroids, geo_centro
     plt.show()
 
 # temp variables
-shape_file = './shapefile/stp_gc_adg.shp'
-populations_file = './populations.csv'
-clusters_file = './clusters.bz'
+shape_file = settings.MEDIA_ROOT + '/shapefile/stp_gc_adg.shp'
+populations_file = settings.MEDIA_ROOT + '/populations.csv'
+clusters_file = settings.MEDIA_ROOT + '/clusters.bz'
 crs = CRS('EPSG:4326')
 
-def main():
+def main(visualization_config):
+    print('llego hasta el script')
+    print(visualization_config)
     map_shape = read_map_shape_file(shape_file)
     populations = read_populations_file(populations_file)
     clusters = read_clusters_file(clusters_file)
@@ -104,7 +108,11 @@ def main():
     geo_centroids = generate_geo_centroids_data_frame(centroids[0], centroids[1])
     generate_plot(map_shape, geo_populations, populations, centroids, geo_centroids)
 
-main()
+def something(visualization_config):
+    process = mp.Process(target = main, args = (visualization_config, ))
+    process.start()
+    process.join()
+
 
 
 

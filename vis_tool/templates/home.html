@@ -1,9 +1,15 @@
 <form action="{% url 'generate-map' %}" method="POST" enctype="multipart/form-data">
 	{% csrf_token %}
-	<h1>File</h1>
+	<h1>Populations file</h1>
 	<div>
-		<label for="file">File</label>
+		<label>Populations file</label>
 		{{ form.populations_file }}
+	</div>
+
+	<h1>Clusters file</h1>
+	<div>
+		<label>Clusters file</label>
+		{{ form.clusters_file }}
 	</div>
 
 	<h1>Bounding box</h1>
@@ -18,25 +24,25 @@
 
 	<h1>Map shape plot</h1>
 	<div>
-		<label for="">Face Color</label>
+		<label>Face Color</label>
 		{{ form.map_shape_face_color }}
 	</div>
 	<div>
-		<label for="">Edge Color</label>
+		<label>Edge Color</label>
 		{{ form.map_shape_edge_color }}
 	</div>
 	</div>
 
 	<h1>Populations color</h1>
 	<div>
-		<label for="">Populations color</label>
+		<label>Populations color</label>
 		{{ form.populations_color }}
 	</div>
 	</div>
 
 	<h1>Clusters color</h1>
 	<div>
-		<label for="">Clusters color</label>
+		<label>Clusters color</label>
 		{{ form.clusters_color }}
 	</div>
 	<button type="submit">Generate map</button>
