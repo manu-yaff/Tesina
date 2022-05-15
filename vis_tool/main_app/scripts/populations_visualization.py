@@ -65,7 +65,7 @@ def generate_geo_centroids_data_frame(centroids, coordinates):
     df = pd.DataFrame(data=coordinates, columns=columns)
     return gpd.GeoDataFrame(df, crs=crs, geometry=centroids)
 
-def generate_plot(map_shape, geo_populations, populations, centroids, geo_centroids):
+def generate_plot(map_shape, geo_populations, populations, centroids, geo_centroids, visualization_config):
     """
     This function builds and shows the plot
 
@@ -75,15 +75,15 @@ def generate_plot(map_shape, geo_populations, populations, centroids, geo_centro
     :param centroids: centroids points and their coordinates
     """
     fig, ax = plt.subplots(figsize=(6,6))
-    map_shape.plot(ax=ax, alpha=0.4, figsize=(20, 15), edgecolor="lightgray", facecolor="lightgray")
-    geo_populations.plot(ax=ax, markersize=20, color=(0.4, 0.2, 0.5, 0.2), marker="o", label="Population")
+    map_shape.plot(ax=ax, alpha=0.4, figsize=(20, 15), edgecolor=visualization_config['map_shape_edge_color'], facecolor=visualization_config['map_shape_face_color'])
+    geo_populations.plot(ax=ax, markersize=20, color=visualization_config['populations_color'], marker="o", label="Population")
     pointLabel = 0
     for i in range(len(populations)):
         point = populations.iloc[i]
         plt.text(point["lon"], point["lat"], str(pointLabel), color=(0.4, 0.2, 0.5, 0.2), fontsize=6)
         pointLabel += 1
 
-    geo_centroids.plot(ax=ax, markersize=60, color="steelblue", marker="X", label="Cluster")
+    geo_centroids.plot(ax=ax, markersize=60, color=visualization_config['clusters_color'], marker="X", label="Cluster")
 
     for coordinate in centroids[1]:
         plt.text(coordinate[1], coordinate[2], coordinate[0], color="black", fontsize=8)
@@ -106,7 +106,7 @@ def main(visualization_config):
     geo_populations = generate_geo_populations_data_frame(populations, crs)
     centroids = generate_centroids(clusters, populations)
     geo_centroids = generate_geo_centroids_data_frame(centroids[0], centroids[1])
-    generate_plot(map_shape, geo_populations, populations, centroids, geo_centroids)
+    generate_plot(map_shape, geo_populations, populations, centroids, geo_centroids, visualization_config)
 
 def something(visualization_config):
     process = mp.Process(target = main, args = (visualization_config, ))
