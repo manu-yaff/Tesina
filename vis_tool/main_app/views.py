@@ -39,7 +39,7 @@ def generate_map(request):
     return HttpResponse('Aqui se genera el mapa con los parametros')
 
 def simulation(request):
-    generate_video()
+    generate_video(request.POST)
     return HttpResponse('Aqui se llama el script')
 
 def handle_request(request):

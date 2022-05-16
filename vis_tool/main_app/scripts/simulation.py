@@ -102,9 +102,9 @@ def hex_to_rgb(hex):
   
   return rgb
 
-def generate_frames(i, n, first, second):
-    first = hex_to_rgb(first[1:])
-    second = hex_to_rgb(second[1:])
+def generate_frames(i, n, visualization_config):
+    first = hex_to_rgb(visualization_config['clusters_color'][1:])
+    second = hex_to_rgb(visualization_config['populations_color'][1:])
 
     fig, ax = plt.subplots(figsize=(15, 15))
     time_text = ax.text(7.2, 0.1, '0', fontsize=20)
@@ -136,7 +136,7 @@ def generate_frames(i, n, first, second):
 
             fig.savefig(GENERATED_FRAMES + name)
 
-def generate_video():
+def generate_video(visualization_config):
     start = time.time()
     processes = []
     num_workers = mp.cpu_count()
@@ -149,7 +149,7 @@ def generate_video():
         if (upper_limit > days):
             upper_limit = days
         processes.append(mp.Process(target=generate_frames,
-                         args=(lower_limit, upper_limit, "#F9D71C", "#180081")))
+                         args=(lower_limit, upper_limit, visualization_config)))
 
     for process in processes:
         process.start()
