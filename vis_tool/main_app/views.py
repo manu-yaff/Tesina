@@ -3,6 +3,7 @@ from django.http import HttpResponse
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from .scripts.populations_visualization import something
+from .scripts.simulation import generate_video
 from .forms import VisualizationForm
 import os
 
@@ -38,5 +39,14 @@ def generate_map(request):
     return HttpResponse('Aqui se genera el mapa con los parametros')
 
 def simulation(request):
-    # generate_video()
+    generate_video()
     return HttpResponse('Aqui se llama el script')
+
+def handle_request(request):
+    if request.method == 'POST':
+        if 'generate_map' in request.POST:
+            generate_map(request)
+            return HttpResonse('Mapa generado')
+        else:
+            simulation(request)
+            return HttpResponse('Video generado')

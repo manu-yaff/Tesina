@@ -1,37 +1,37 @@
 <form action="{% url 'generate-map' %}" method="POST" enctype="multipart/form-data">
 	{% csrf_token %}
-	<h1>Populations file</h1>
-	<div>
-		<label>Populations file</label>
-		{{ form.populations_file }}
-	</div>
+	<!-- <h1>Populations file</h1> -->
+	<!-- <div> -->
+	<!-- 	<label>Populations file</label> -->
+	<!-- 	{{ form.populations_file }} -->
+	<!-- </div> -->
 
-	<h1>Clusters file</h1>
-	<div>
-		<label>Clusters file</label>
-		{{ form.clusters_file }}
-	</div>
+	<!-- <h1>Clusters file</h1> -->
+	<!-- <div> -->
+	<!-- 	<label>Clusters file</label> -->
+	<!-- 	{{ form.clusters_file }} -->
+	<!-- </div> -->
 
-	<h1>Bounding box</h1>
-	<div>
-		<label>Bounding box width</label>
-		{{ form.bounding_box_width }}
-	</div>
-	<div>
-		<label>Bounding box height</label>
-		{{ form.bounding_box_height }}
-	</div>
+	<!-- <h1>Bounding box</h1> -->
+	<!-- <div> -->
+	<!-- 	<label>Bounding box width</label> -->
+	<!-- 	{{ form.bounding_box_width }} -->
+	<!-- </div> -->
+	<!-- <div> -->
+	<!-- 	<label>Bounding box height</label> -->
+	<!-- 	{{ form.bounding_box_height }} -->
+	<!-- </div> -->
 
-	<h1>Map shape plot</h1>
-	<div>
-		<label>Face Color</label>
-		{{ form.map_shape_face_color }}
-	</div>
-	<div>
-		<label>Edge Color</label>
-		{{ form.map_shape_edge_color }}
-	</div>
-	</div>
+	<!-- <h1>Map shape plot</h1> -->
+	<!-- <div> -->
+	<!-- 	<label>Face Color</label> -->
+	<!-- 	{{ form.map_shape_face_color }} -->
+	<!-- </div> -->
+	<!-- <div> -->
+	<!-- 	<label>Edge Color</label> -->
+	<!-- 	{{ form.map_shape_edge_color }} -->
+	<!-- </div> -->
+	<!-- </div> -->
 
 	<h1>Populations color</h1>
 	<div>
@@ -45,6 +45,6 @@
 		<label>Clusters color</label>
 		{{ form.clusters_color }}
 	</div>
-	<button type="submit">Generate map</button>
+	<input type="submit" name="generate_map" value="Generate map">
+	<input type="submit" name="generate_video" value="Generate video">
 </form>
-<a href="{% url 'simulation' %}">Realizar simulación</a>

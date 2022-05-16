@@ -1,6 +1,7 @@
-from utils import *
+from .utils import *
 from pyproj import CRS
 from shapely.geometry import Point, Polygon
+from django.conf import settings
 import os
 import time
 import multiprocessing as mp
@@ -10,12 +11,12 @@ import matplotlib.pyplot as plt
 
 
 
-shape_file = './shapefile/stp_gc_adg.shp'
-populations_file = './populations.csv'
-clusters_file = './clusters.bz'
-FRAMES_FOLDER = "frames"
-GENERATED_FRAMES = "./" + FRAMES_FOLDER + "/"
-SIM_URL = "./sim/E_0025000000_03_0000000000_0000000000_0000000000-HLT_0"
+shape_file = settings.MEDIA_ROOT + '/shapefile/stp_gc_adg.shp'
+populations_file = settings.MEDIA_ROOT + '/populations.csv'
+clusters_file = settings.MEDIA_ROOT + '/clusters.bz'
+FRAMES_FOLDER = settings.MEDIA_ROOT + "/frames"
+GENERATED_FRAMES = settings.MEDIA_ROOT + "/frames/"
+SIM_URL = settings.MEDIA_ROOT + "/sim/E_0025000000_03_0000000000_0000000000_0000000000-HLT_0"
 FILE_TYPE = "_sum.bz"
 crs = CRS('EPSG:4326')
 
@@ -93,7 +94,18 @@ geo_centroids = gpd.GeoDataFrame(df, crs=crs, geometry=centroids)
 if (not os.path.exists(FRAMES_FOLDER)):
     os.makedirs(FRAMES_FOLDER)
 
-def generate_frames(i, n):
+def hex_to_rgb(hex):
+  rgb = []
+  for i in (0, 2, 4):
+    decimal = int(hex[i:i+2], 16)
+    rgb.append(decimal/255)
+  
+  return rgb
+
+def generate_frames(i, n, first, second):
+    first = hex_to_rgb(first[1:])
+    second = hex_to_rgb(second[1:])
+
     fig, ax = plt.subplots(figsize=(15, 15))
     time_text = ax.text(7.2, 0.1, '0', fontsize=20)
     aux = "000"
@@ -111,9 +123,9 @@ def generate_frames(i, n):
         if (not os.path.exists(GENERATED_FRAMES + name)):
             s = [math.log2(geo_centroids.iloc[n].propP[i]) *
                  20 for n in range(len(geo_centroids))]
-            colorsH = [[0.4, 0.2, 0.5, geo_centroids.iloc[n].propH[i]]
+            colorsH = [[first[0], first[1], first[2], geo_centroids.iloc[n].propH[i]]
                        for n in range(len(geo_centroids))]
-            colorsO = [[0.8, 0.2, 0.5, geo_centroids.iloc[n].propO[i]]
+            colorsO = [[second[0], second[1], second[2], geo_centroids.iloc[n].propO[i]]
                        for n in range(len(geo_centroids))]
 
             geo_centroids.plot(ax=ax, markersize=s, c=colorsH,
@@ -124,7 +136,7 @@ def generate_frames(i, n):
 
             fig.savefig(GENERATED_FRAMES + name)
 
-if __name__ == '__main__':
+def generate_video():
     start = time.time()
     processes = []
     num_workers = mp.cpu_count()
@@ -137,7 +149,7 @@ if __name__ == '__main__':
         if (upper_limit > days):
             upper_limit = days
         processes.append(mp.Process(target=generate_frames,
-                         args=(lower_limit, upper_limit)))
+                         args=(lower_limit, upper_limit, "#F9D71C", "#180081")))
 
     for process in processes:
         process.start()
@@ -146,8 +158,7 @@ if __name__ == '__main__':
         process.join()
 
     subprocess.call('ffmpeg -framerate 25 -i ' +
-                    GENERATED_FRAMES + 'frame%04d.jpg output.mp4', shell=True)
-    path = os.getcwd()
-    subprocess.Popen('open ' + path + '/output.mp4', shell=True)
+                    GENERATED_FRAMES + 'frame%04d.jpg ' + settings.MEDIA_ROOT + '/output.mp4', shell=True)
+    subprocess.Popen('open ' + settings.MEDIA_ROOT + '/output.mp4', shell=True)
     end = time.time()
     print('execution time: ', end - start)
