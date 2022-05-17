@@ -1,5 +1,7 @@
 <form action="{% url 'generate-map' %}" method="POST" enctype="multipart/form-data">
 	{% csrf_token %}
+
+	Select Folder for the shapefile: <input type="file" name="test" multiple />
 	<!-- <h1>Populations file</h1> -->
 	<!-- <div> -->
 	<!-- 	<label>Populations file</label> -->

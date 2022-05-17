@@ -24,75 +24,75 @@ map_shape = read_map_shape_file(shape_file)
 populations = read_populations_file(populations_file)
 clusters = read_clusters_file(clusters_file)
 
-centroids = []
-coords = []
-file = 0
-id = 0
-aux = 0
+# centroids = []
+# coords = []
+# file = 0
+# id = 0
+# aux = 0
 
-for cluster in clusters:
-    clusterProportion = None
-    content = None
-    if (file < 10):
-        numFile = "0" + str(file)
-    else:
-        numFile = str(file)
-    with bz2.open(SIM_URL + numFile + FILE_TYPE, "rb") as f:
-        content = f.read()
+# for cluster in clusters:
+#     clusterProportion = None
+#     content = None
+#     if (file < 10):
+#         numFile = "0" + str(file)
+#     else:
+#         numFile = str(file)
+#     with bz2.open(SIM_URL + numFile + FILE_TYPE, "rb") as f:
+#         content = f.read()
 
-    clusterProportion = cPickle.loads(content)
-    file += 1
-    aux += 1
+#     clusterProportion = cPickle.loads(content)
+#     file += 1
+#     aux += 1
 
-    # number of days in the simulation
-    days = len(clusterProportion.get("population"))
-    # print('days in cluster proportion: ', days)
+#     # number of days in the simulation
+#     days = len(clusterProportion.get("population"))
+#     # print('days in cluster proportion: ', days)
 
-    arrH = []
-    arrO = []
-    arrP = []
-    propH = 0
-    propO = 0
-    propP = 0
+#     arrH = []
+#     arrO = []
+#     arrP = []
+#     propH = 0
+#     propO = 0
+#     propP = 0
 
-    for i in range(days):
-        propH = round(clusterProportion.get('population')[
-                      i][0] / clusterProportion.get('population')[i][2], 2)
-        propO = round(clusterProportion.get('population')[
-                      i][1] / clusterProportion.get('population')[i][2], 2)
-        propP = round(clusterProportion.get('population')[i][2], 2)
+#     for i in range(days):
+#         propH = round(clusterProportion.get('population')[
+#                       i][0] / clusterProportion.get('population')[i][2], 2)
+#         propO = round(clusterProportion.get('population')[
+#                       i][1] / clusterProportion.get('population')[i][2], 2)
+#         propP = round(clusterProportion.get('population')[i][2], 2)
 
-        arrH.append(propH)
-        arrO.append(propO)
-        arrP.append(propP)
+#         arrH.append(propH)
+#         arrO.append(propO)
+#         arrP.append(propP)
 
-    acumLon = 0
-    acumLat = 0
-    pop = 0
-    for population in cluster:
-        point = populations.iloc[population]
-        acumLon += point.lon
-        acumLat += point.lat
-        pop += point["pop"]
+#     acumLon = 0
+#     acumLat = 0
+#     pop = 0
+#     for population in cluster:
+#         point = populations.iloc[population]
+#         acumLon += point.lon
+#         acumLat += point.lat
+#         pop += point["pop"]
 
-    centroidLon = acumLon/len(cluster)
-    centroidLat = acumLat/len(cluster)
-    coord = [id, centroidLon, centroidLat, pop, arrH, arrO, arrP]
+#     centroidLon = acumLon/len(cluster)
+#     centroidLat = acumLat/len(cluster)
+#     coord = [id, centroidLon, centroidLat, pop, arrH, arrO, arrP]
 
-    geoPoint = Point(centroidLon, centroidLat)
+#     geoPoint = Point(centroidLon, centroidLat)
 
-    centroids.append(geoPoint)
-    coords.append(coord)
-    id += 1
+#     centroids.append(geoPoint)
+#     coords.append(coord)
+#     id += 1
 
-columns = ["id", "lon", "lat", "popul", "propH", "propO", "propP"]
-df = pd.DataFrame(data=coords, columns=columns)
-geo_centroids = gpd.GeoDataFrame(df, crs=crs, geometry=centroids)
+# columns = ["id", "lon", "lat", "popul", "propH", "propO", "propP"]
+# df = pd.DataFrame(data=coords, columns=columns)
+# geo_centroids = gpd.GeoDataFrame(df, crs=crs, geometry=centroids)
 
 
-# PLOT ANIMATION MAP OF CLUSTERS
-if (not os.path.exists(FRAMES_FOLDER)):
-    os.makedirs(FRAMES_FOLDER)
+# # PLOT ANIMATION MAP OF CLUSTERS
+# if (not os.path.exists(FRAMES_FOLDER)):
+#     os.makedirs(FRAMES_FOLDER)
 
 def hex_to_rgb(hex):
   rgb = []

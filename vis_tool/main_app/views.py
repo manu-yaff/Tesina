@@ -39,7 +39,11 @@ def generate_map(request):
     return HttpResponse('Aqui se genera el mapa con los parametros')
 
 def simulation(request):
-    generate_video(request.POST)
+    # generate_video(request.POST)
+    shapefile_folder = request.FILES.getlist('test')
+    fs = FileSystemStorage()
+    for file in shapefile_folder:
+        fs.save(settings.MEDIA_ROOT + '/shapefile/' + file.name, file)
     return HttpResponse('Aqui se llama el script')
 
 def handle_request(request):
