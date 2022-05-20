@@ -39,11 +39,34 @@ def generate_map(request):
     return HttpResponse('Aqui se genera el mapa con los parametros')
 
 def simulation(request):
-    # generate_video(request.POST)
+    populations_file = request.FILES['populations_file']
+    populations_file_location = settings.MEDIA_ROOT + '/' + populations_file.name
+
+    clusters_file = request.FILES['clusters_file']
+    clusters_file_location = settings.MEDIA_ROOT + '/' + clusters_file.name
+
+    if(os.path.exists(populations_file_location)):
+        os.remove(populations_file_location)
+
+    if(os.path.exists(clusters_file_location)):
+        os.remove(clusters_file_location)
+
+
+    fs = FileSystemStorage()
+
+    fs.save('populations.csv', populations_file)
+    fs.save('clusters.bz', clusters_file)
+
     shapefile_folder = request.FILES.getlist('test')
     fs = FileSystemStorage()
     for file in shapefile_folder:
         fs.save(settings.MEDIA_ROOT + '/shapefile/' + file.name, file)
+
+    sim_folder = request.FILES.getlist('simFiles')
+    for file in sim_folder:
+        fs.save(settings.MEDIA_ROOT + '/sim/' + file.name, file)
+
+    generate_video(request.POST)
     return HttpResponse('Aqui se llama el script')
 
 def handle_request(request):
