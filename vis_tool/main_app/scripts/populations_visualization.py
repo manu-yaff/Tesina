@@ -130,7 +130,7 @@ def main(visualization_config):
     geo_centroids = generate_geo_centroids_data_frame(centroids[0], centroids[1])
     generate_plot(map_shape, geo_populations, populations, centroids, geo_centroids, visualization_config)
 
-def something(visualization_config):
+def start_plot_process(visualization_config):
     process = mp.Process(target = main, args = (visualization_config, ))
     process.start()
     process.join()

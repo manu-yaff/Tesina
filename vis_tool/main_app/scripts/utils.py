@@ -2,6 +2,8 @@ import geopandas as gpd
 import pandas as pd
 import bz2
 import _pickle as cPickle
+from django.core.files.storage import FileSystemStorage
+from django.conf import settings
 
 
 def read_map_shape_file(file):
@@ -32,4 +34,17 @@ def read_clusters_file(file):
     with bz2.open(file, "rb") as f:
         content = f.read()
     return cPickle.loads(content)
+
+def save_file(path, file):
+    """
+    This function saves a file in the file system storage
+
+    :param filename: the file object to be saved
+    :param file: the file object to be saved
+    :return: True if the file was saved successfully
+    """
+    fs = FileSystemStorage()
+    return fs.save(path, file)
+
+
 

@@ -1,0 +1,58 @@
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}" />
+<div class="container">
+	<form
+		class="visualization-form"
+		action="{% url 'static-map-generation' %}"
+		method="POST"
+		enctype="multipart/form-data">
+		{% csrf_token %}
+
+		<div class="visualization-form__group">
+			<label>Select Folder for the shapefile:</label>
+			{{ form.map_shape }}
+		</div>
+
+		<div class="visualization-form__group">
+			<label>Populations file:</label>
+			{{ form.populations_file }}
+		</div>
+
+		<div class="visualization-form__group">
+			<label>Clusters file:</label>
+			{{ form.clusters_file }}
+		</div>
+
+		<div class="visualization-form__group">
+			<label>Bounding box width:</label>
+			{{ form.bounding_box_width }}
+		</div>
+
+		<div class="visualization-form__group">
+			<label>Bounding box height:</label>
+			{{ form.bounding_box_height }}
+		</div>
+
+		<div class="visualization-form__group">
+			<label>Face Color</label>
+			{{ form.map_shape_face_color }}
+		</div>
+
+		<div class="visualization-form__group">
+			<label>Edge Color</label>
+			{{ form.map_shape_edge_color }}
+		</div>
+
+		<div class="visualization-form__group">
+			<label>Populations color</label>
+			{{ form.populations_color }}
+		</div>
+
+		<div class="visualization-form__group">
+			<label>Clusters color</label>
+			{{ form.clusters_color }}
+		</div>
+
+		<input type="submit" name="generate_video" value="Generate static map">
+	</form>
+</div>
