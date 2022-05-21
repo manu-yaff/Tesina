@@ -10,12 +10,12 @@
 
 		<div class="visualization-form__group">
 			<label>Select the files for the shapefile:</label>
-			<input type="file" name="test" multiple />
+			{{ form.map_shape }}
 		</div>
 
 		<div class="visualization-form__group">
 			<label>Select the files for the simulation:</label>
-			<input type="file" name="simFiles" multiple />
+			{{ form.sim_files }}
 		</div>
 
 		<div class="visualization-form__group">
@@ -49,13 +49,13 @@
 		</div>
 
 		<div class="visualization-form__group">
-			<label>Gene O Color</label>
-			{{ form.gene_o_color }}
+			<label>Gene H Color</label>
+			{{ form.gene_h_color }}
 		</div>
 
 		<div class="visualization-form__group">
-			<label>Gene P Color</label>
-			{{ form.gene_p_color }}
+			<label>Gene O Color</label>
+			{{ form.gene_o_color }}
 		</div>
 
 		<input type="submit" value="Generate video simulation">

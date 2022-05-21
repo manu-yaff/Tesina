@@ -49,7 +49,35 @@ def static_map_generation(request):
     return HttpResponseRedirect('static-map-form')
 
 def simulation_video_generation(request):
-    return HttpResponse('Aqui se genera el video con los parametros')
+    if request.method == 'POST':
+        form = request.POST
+
+        shape_file_folder = request.FILES.getlist('map_shape')
+        shape_file_path = settings.MEDIA_ROOT + '/shapefile/'
+
+        for file in shape_file_folder:
+            save_file(shape_file_path + file.name, file)
+
+        simulation_folder = request.FILES.getlist('sim_files')
+        simulation_path = settings.MEDIA_ROOT + '/sim/'
+        for file in simulation_folder:
+            save_file(simulation_path + file.name, file)
+
+        populations_file = request.FILES['populations_file']
+        clusters_file = request.FILES['clusters_file']
+
+        save_file(settings.MEDIA_ROOT + '/populations.csv', populations_file)
+        save_file(settings.MEDIA_ROOT + '/clusters.bz', clusters_file)
+
+        generate_video(form)
+
+        shutil.rmtree(settings.MEDIA_ROOT + '/frames/')
+        shutil.rmtree(settings.MEDIA_ROOT + '/sim/')
+        shutil.rmtree(settings.MEDIA_ROOT + '/shapefile/')
+        os.remove(settings.MEDIA_ROOT + '/populations.csv')
+        os.remove(settings.MEDIA_ROOT + '/clusters.bz')
+
+    return HttpResponseRedirect('simulation-video-generation')
 
 
 # def simulation(request):
@@ -59,15 +87,6 @@ def simulation_video_generation(request):
 #     clusters_file = request.FILES['clusters_file']
 #     clusters_file_location = settings.MEDIA_ROOT + '/' + clusters_file.name
 
-#     if(os.path.exists(populations_file_location)):
-#         os.remove(populations_file_location)
-
-#     if(os.path.exists(clusters_file_location)):
-#         os.remove(clusters_file_location)
-
-
-#     fs = FileSystemStorage()
-
 #     fs.save('populations.csv', populations_file)
 #     fs.save('clusters.bz', clusters_file)
 
@@ -76,18 +95,10 @@ def simulation_video_generation(request):
 #     for file in shapefile_folder:
 #         fs.save(settings.MEDIA_ROOT + '/shapefile/' + file.name, file)
 
-#     sim_folder = request.FILES.getlist('simFiles')
-#     for file in sim_folder:
-#         fs.save(settings.MEDIA_ROOT + '/sim/' + file.name, file)
+    # sim_folder = request.FILES.getlist('simFiles')
+    # for file in sim_folder:
+    #     fs.save(settings.MEDIA_ROOT + '/sim/' + file.name, file)
 
 #     generate_video(request.POST)
 #     return HttpResponse('Aqui se llama el script')
 
-# def handle_request(request):
-#     if request.method == 'POST':
-#         if 'generate_map' in request.POST:
-#             generate_map(request)
-#             return HttpResonse('Mapa generado')
-#         else:
-#             simulation(request)
-#             return HttpResponse('Video generado')

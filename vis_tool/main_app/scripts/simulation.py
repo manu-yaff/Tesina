@@ -23,8 +23,8 @@ crs = CRS('EPSG:4326')
 
 
 def generate_frames(i, n, visualization_config, geo_centroids, map_shape):
-    first = hex_to_rgb(visualization_config['clusters_color'][1:])
-    second = hex_to_rgb(visualization_config['populations_color'][1:])
+    first = hex_to_rgb(visualization_config['gene_h_color'][1:])
+    second = hex_to_rgb(visualization_config['gene_o_color'][1:])
 
     fig, ax = plt.subplots(figsize=(15, 15))
     time_text = ax.text(7.2, 0.1, '0', fontsize=20)
