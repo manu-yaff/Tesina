@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from django.http import HttpResponse
+from django.http import HttpResponse, HttpResponseRedirect
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
 from .scripts.populations_visualization import start_plot_process
@@ -46,7 +46,7 @@ def static_map_generation(request):
         for file in files_to_remove:
             os.remove(settings.MEDIA_ROOT + '/' + file)
 
-    return HttpResponse('Aqui se genera el mapa con los parametros')
+    return HttpResponseRedirect('static-map-form')
 
 def simulation_video_generation(request):
     return HttpResponse('Aqui se genera el video con los parametros')

@@ -30,6 +30,7 @@ h1 {
 
 .visualization-form__group label {
 	font-weight: bold;
+	margin-bottom: 5px;
 }
 
 .visualization-form__group input[type="number"] {
@@ -41,4 +42,12 @@ h1 {
 
 .visualization-form__group > * {
 	display: block; 
+}
+
+.visualization-form__button {
+	border: none;
+	padding: 10px;
+	border-radius: 8px;
+	color: white;
+	background-color: #113b9f;
 }

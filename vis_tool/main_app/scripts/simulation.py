@@ -21,13 +21,6 @@ FILE_TYPE = "_sum.bz"
 crs = CRS('EPSG:4326')
 
 
-def hex_to_rgb(hex):
-  rgb = []
-  for i in (0, 2, 4):
-    decimal = int(hex[i:i+2], 16)
-    rgb.append(decimal/255)
-  
-  return rgb
 
 def generate_frames(i, n, visualization_config, geo_centroids, map_shape):
     first = hex_to_rgb(visualization_config['clusters_color'][1:])
