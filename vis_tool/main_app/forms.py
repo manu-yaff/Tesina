@@ -19,8 +19,8 @@ class VideoGenerationForm(forms.Form):
     clusters_file = forms.FileField()
     bounding_box_width = forms.IntegerField()
     bounding_box_height = forms.IntegerField()
-    map_shape_face_color = forms.CharField(widget=forms.TextInput(attrs={"type": "color"}))
-    map_shape_edge_color = forms.CharField(widget=forms.TextInput(attrs={"type": "color"}))
-    gene_h_color = forms.CharField(widget=forms.TextInput(attrs={"type": "color"}))
-    gene_o_color = forms.CharField(widget=forms.TextInput(attrs={"type": "color"}))
+    map_shape_face_color = forms.CharField(widget=forms.TextInput(attrs={"type": "color", "value": "#D3D3D3"}))
+    map_shape_edge_color = forms.CharField(widget=forms.TextInput(attrs={"type": "color", "value": "#D3D3D3"}))
+    gene_h_color = forms.CharField(widget=forms.TextInput(attrs={"type": "color", "value": "#4682B4"}))
+    gene_o_color = forms.CharField(widget=forms.TextInput(attrs={"type": "color", "value": "#66337f"}))
 
