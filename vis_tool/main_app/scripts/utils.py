@@ -61,4 +61,15 @@ def hex_to_rgb(hex):
 
     return rgb
 
+def save_folder_files(folder, new_folder_path):
+    """
+    This function save all the files in an array of file objects
+
+    :param: folder: array with the file objects
+    :param: new_folder_path: the new path where the files will be stored
+    """
+    for file in folder:
+        save_file(new_folder_path + file.name, file)
+
+
 

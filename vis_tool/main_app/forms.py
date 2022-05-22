@@ -3,8 +3,8 @@ from django import forms
 
 class StaticMapForm(forms.Form):
     map_shape = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True, "webkitdirectory": True, "mozdirectory": True }))
-    populations_file = forms.FileField()
-    clusters_file = forms.FileField()
+    populations_file = forms.FileField(widget=forms.ClearableFileInput(attrs={'accept': '.csv'}))
+    clusters_file = forms.FileField(widget=forms.ClearableFileInput(attrs={'accept': '.bz'}))
     bounding_box_width = forms.IntegerField()
     bounding_box_height = forms.IntegerField()
     map_shape_face_color = forms.CharField(widget=forms.TextInput(attrs={"type": "color", "value": "#D3D3D3"}))
@@ -15,8 +15,8 @@ class StaticMapForm(forms.Form):
 class VideoGenerationForm(forms.Form):
     map_shape = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True, "webkitdirectory": True, "mozdirectory": True }))
     sim_files = forms.FileField(widget=forms.ClearableFileInput(attrs={'multiple': True, "webkitdirectory": True, "mozdirectory": True }))
-    populations_file = forms.FileField()
-    clusters_file = forms.FileField()
+    populations_file = forms.FileField(widget=forms.ClearableFileInput(attrs={'accept': '.csv'}))
+    clusters_file = forms.FileField(widget=forms.ClearableFileInput(attrs={'accept': '.bz'}))
     bounding_box_width = forms.IntegerField()
     bounding_box_height = forms.IntegerField()
     map_shape_face_color = forms.CharField(widget=forms.TextInput(attrs={"type": "color", "value": "#D3D3D3"}))
