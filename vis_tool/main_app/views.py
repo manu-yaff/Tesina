@@ -77,7 +77,7 @@ def simulation_video_generation(request):
         os.remove(settings.MEDIA_ROOT + '/populations.csv')
         os.remove(settings.MEDIA_ROOT + '/clusters.bz')
 
-    return HttpResponseRedirect('simulation-video-generation')
+    return HttpResponseRedirect('video-generation-form')
 
 
 # def simulation(request):

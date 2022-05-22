@@ -21,7 +21,6 @@ FILE_TYPE = "_sum.bz"
 crs = CRS('EPSG:4326')
 
 
-
 def generate_frames(i, n, visualization_config, geo_centroids, map_shape):
     first = hex_to_rgb(visualization_config['gene_h_color'][1:])
     second = hex_to_rgb(visualization_config['gene_o_color'][1:])
@@ -131,6 +130,7 @@ def generate_video(visualization_config):
     if (not os.path.exists(FRAMES_FOLDER)):
         os.makedirs(FRAMES_FOLDER)
 
+    ################################
     start = time.time()
     processes = []
     num_workers = mp.cpu_count()
