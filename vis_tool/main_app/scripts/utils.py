@@ -48,9 +48,17 @@ def save_file(path, file):
 
 
 def hex_to_rgb(hex):
-  rgb = []
-  for i in (0, 2, 4):
-    decimal = int(hex[i:i+2], 16)
-    rgb.append(decimal/255)
-  
-  return rgb
+    """
+    This function converts a hex color to its value in rgb
+    
+    :param hex: hex color
+    :return: array with the rgb value
+    """
+    rgb = []
+    for i in (0, 2, 4):
+        decimal = int(hex[i:i+2], 16)
+        rgb.append(decimal/255)
+
+    return rgb
+
+

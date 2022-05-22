@@ -114,14 +114,12 @@ def generate_plot(map_shape, geo_populations, populations, centroids, geo_centro
     plt.show()
 
 # temp variables
-shape_file = settings.MEDIA_ROOT + '/shapefile/stp_gc_adg.shp'
-populations_file = settings.MEDIA_ROOT + '/populations.csv'
-clusters_file = settings.MEDIA_ROOT + '/clusters.bz'
+shape_file = settings.MEDIA_ROOT + '/files/shapefile/stp_gc_adg.shp'
+populations_file = settings.MEDIA_ROOT + '/files/populations.csv'
+clusters_file = settings.MEDIA_ROOT + '/files/clusters.bz'
 crs = CRS('EPSG:4326')
 
 def main(visualization_config):
-    print('llego hasta el script')
-    print(visualization_config)
     map_shape = read_map_shape_file(shape_file)
     populations = read_populations_file(populations_file)
     clusters = read_clusters_file(clusters_file)

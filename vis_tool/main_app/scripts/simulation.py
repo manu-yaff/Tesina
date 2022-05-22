@@ -11,12 +11,12 @@ import matplotlib.pyplot as plt
 
 
 
-shape_file = settings.MEDIA_ROOT + '/shapefile/stp_gc_adg.shp'
-populations_file = settings.MEDIA_ROOT + '/populations.csv'
-clusters_file = settings.MEDIA_ROOT + '/clusters.bz'
-FRAMES_FOLDER = settings.MEDIA_ROOT + "/frames"
-GENERATED_FRAMES = settings.MEDIA_ROOT + "/frames/"
-SIM_URL = settings.MEDIA_ROOT + "/sim/E_0025000000_03_0000000000_0000000000_0000000000-HLT_0"
+shape_file = settings.MEDIA_ROOT + '/files/shapefile/stp_gc_adg.shp'
+populations_file = settings.MEDIA_ROOT + '/files/populations.csv'
+clusters_file = settings.MEDIA_ROOT + '/files/clusters.bz'
+FRAMES_FOLDER = settings.MEDIA_ROOT + "/files/frames"
+GENERATED_FRAMES = settings.MEDIA_ROOT + "/files/frames/"
+SIM_URL = settings.MEDIA_ROOT + "/files/sim/E_0025000000_03_0000000000_0000000000_0000000000-HLT_0"
 FILE_TYPE = "_sum.bz"
 crs = CRS('EPSG:4326')
 
@@ -134,7 +134,7 @@ def generate_video(visualization_config):
     start = time.time()
     processes = []
     num_workers = mp.cpu_count()
-    step = math.ceil(300 / num_workers)
+    step = math.ceil(days / num_workers)
 
     upper_limit = 0
     for i in range(num_workers):
@@ -150,6 +150,9 @@ def generate_video(visualization_config):
 
     for process in processes:
         process.join()
+
+    if os.path.exists(settings.MEDIA_ROOT + '/output.mp4'):
+        os.remove(settings.MEDIA_ROOT + '/output.mp4')
 
     subprocess.call('ffmpeg -framerate 25 -i ' +
                     GENERATED_FRAMES + 'frame%04d.jpg ' + settings.MEDIA_ROOT + '/output.mp4', shell=True)
