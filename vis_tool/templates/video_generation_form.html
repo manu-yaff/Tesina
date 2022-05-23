@@ -1,5 +1,12 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}" />
+{% if messages %}
+<ul>
+  {% for message in messages %}
+	<a href="{{ message }}">{{ message }}</a>
+  {% endfor %}
+</ul>
+{% endif %}
 <div class="container">
 	<form
 		class="visualization-form"

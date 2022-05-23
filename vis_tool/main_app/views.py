@@ -2,6 +2,7 @@ from django.shortcuts import render
 from django.http import HttpResponse, HttpResponseRedirect
 from django.core.files.storage import FileSystemStorage
 from django.conf import settings
+from django.contrib import messages
 from .scripts.populations_visualization import start_plot_process
 from .scripts.simulation import generate_video
 from .forms import StaticMapForm, VideoGenerationForm
@@ -44,5 +45,7 @@ def simulation_video_generation(request):
         save_folder_files(request.FILES.getlist('sim_files'), settings.MEDIA_ROOT + '/files/sim/')
         generate_video(form)
         shutil.rmtree(settings.MEDIA_ROOT + '/files/') 
+
+        messages.success(request, settings.MEDIA_ROOT + '/output.mp4')
 
     return HttpResponseRedirect('video-generation-form')
