@@ -1,5 +1,14 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}" />
+
+{% if messages %}
+<div id="message" class="success-message">
+  {% for message in messages %}
+		<p>{{ message }}</p>
+  {% endfor %}
+</div>
+{% endif %}
+
 <div class="container">
 	<form
 		class="visualization-form"
@@ -56,3 +65,13 @@
 		<input class="visualization-form__button" type="submit" name="generate_video" value="Generate static map">
 	</form>
 </div>
+
+<script>
+	const box = document.getElementById("message");
+	if(box){
+			setTimeout(() => {
+					box.style.display = 'none';
+				}, 4000)
+			console.log('definido');
+		}
+</script>

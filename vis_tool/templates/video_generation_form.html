@@ -1,11 +1,11 @@
 {% load static %}
 <link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}" />
 {% if messages %}
-<ul>
+<div id="message" class="success-message">
   {% for message in messages %}
-	<a href="{{ message }}">{{ message }}</a>
+		<p>{{ message }} </p>
   {% endfor %}
-</ul>
+</div>
 {% endif %}
 <div class="container">
 	<form
@@ -58,3 +58,12 @@
 		<input type="submit" value="Generate video simulation">
 	</form
 </div>
+<script>
+	const box = document.getElementById("message");
+	if(box){
+			setTimeout(() => {
+					box.style.display = 'none';
+				}, 15000)
+			console.log('definido');
+		}
+</script>

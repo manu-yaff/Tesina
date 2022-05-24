@@ -52,3 +52,16 @@ h1 {
 	background-color: #113b9f;
 	cursor: pointer;
 }
+
+.success-message {
+	font-family: 'Roboto', sans-serif;
+	background-color: green;
+	padding: 8px;
+	color: white;
+	font-weight: bold;
+	border-radius: 8px;
+	position: absolute;
+	top: 0;
+	left: 50%;
+	transform: translate(-50%, 0);
+}

@@ -33,6 +33,7 @@ def static_map_generation(request):
         save_file(settings.MEDIA_ROOT + '/files/clusters.bz', request.FILES['clusters_file'])
         start_plot_process(form)
         shutil.rmtree(settings.MEDIA_ROOT + '/files/') 
+        messages.success(request, 'Visualization generated successfully')
 
     return HttpResponseRedirect('static-map-form')
 
@@ -46,6 +47,6 @@ def simulation_video_generation(request):
         generate_video(form)
         shutil.rmtree(settings.MEDIA_ROOT + '/files/') 
 
-        messages.success(request, settings.MEDIA_ROOT + '/output.mp4')
+        messages.success(request, 'Video generated successfully. Video location: ' + settings.MEDIA_ROOT + '/output.mp4')
 
     return HttpResponseRedirect('video-generation-form')
