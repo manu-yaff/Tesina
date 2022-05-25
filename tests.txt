@@ -1,1 +1,0 @@
-- For 3651 days, uploading only shapefile, simulation took: 440.77seg, 7.34min

@@ -6,8 +6,7 @@ import os
 import time
 import multiprocessing as mp
 import math
-import subprocess
-import matplotlib.pyplot as plt
+import subprocess import matplotlib.pyplot as plt
 
 
 
@@ -158,5 +157,3 @@ def generate_video(visualization_config):
                     GENERATED_FRAMES + 'frame%04d.jpg ' + settings.MEDIA_ROOT + '/output.mp4', shell=True)
     subprocess.Popen('open ' + settings.MEDIA_ROOT + '/output.mp4', shell=True)
     end = time.time()
-    print('*****************************************')
-    print('execution time: ', end - start)
