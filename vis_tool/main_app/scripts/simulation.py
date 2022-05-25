@@ -133,7 +133,7 @@ def generate_video(visualization_config):
     start = time.time()
     processes = []
     num_workers = mp.cpu_count()
-    step = math.ceil(300 / num_workers)
+    step = math.ceil(days / num_workers)
 
     upper_limit = 0
     for i in range(num_workers):
