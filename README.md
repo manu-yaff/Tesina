@@ -24,7 +24,7 @@
 - `sudo apt-get install python3-venv -y`
 - `sudo apt-get install ffmpeg -y`
 
-#### Configuration
+### Configuration
 
 - Clone the respository
 
