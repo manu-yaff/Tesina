@@ -6,7 +6,8 @@ import os
 import time
 import multiprocessing as mp
 import math
-import subprocess import matplotlib.pyplot as plt
+import subprocess
+import matplotlib.pyplot as plt
 
 
 
