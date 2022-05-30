@@ -44,9 +44,9 @@ def simulation_video_generation(request):
         save_file(settings.MEDIA_ROOT + '/files/populations.csv', request.FILES['populations_file'])
         save_file(settings.MEDIA_ROOT + '/files/clusters.bz', request.FILES['clusters_file'])
         save_folder_files(request.FILES.getlist('sim_files'), settings.MEDIA_ROOT + '/files/sim/')
-        generate_video(form)
+        video_path = generate_video(form)
         shutil.rmtree(settings.MEDIA_ROOT + '/files/') 
 
-        messages.success(request, 'Video generated successfully. Video location: ' + settings.MEDIA_ROOT + '/output.mp4')
+        messages.success(request, 'Video generated successfully. Video location: ' + video_path)
 
     return HttpResponseRedirect('video-generation-form')

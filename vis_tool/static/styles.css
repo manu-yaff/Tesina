@@ -8,6 +8,21 @@ h1 {
 	margin-bottom: 10px;
 }
 
+.home-screen {
+	height: 100vh;
+	display: flex;
+	background-color: #4b0c86;
+	justify-content: center;
+	align-items: center;
+	gap: 48px;
+	color: white;
+}
+
+.home-screen a {
+	color: white;
+}
+
+
 .container {
 	background-color: #4b0c86;
 	height: 100%;

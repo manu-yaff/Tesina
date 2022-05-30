@@ -1,2 +1,8 @@
-<a href={% url 'static-map-form' %}>Generate static map</a>
-<a href={% url 'video-generation-form' %}>Generate video</a>
+{% load static %}
+<link rel="stylesheet" type="text/css" href="{% static 'styles.css' %}" />
+<div class="home-screen">
+	<h1>Welcome</h1>
+	<a href={% url 'static-map-form' %}>Generate static map</a>
+	<a href={% url 'video-generation-form' %}>Generate video</a>
+</div>
+
