@@ -22,7 +22,6 @@ h1 {
 	color: white;
 }
 
-
 .container {
 	background-color: #4b0c86;
 	height: 100%;
@@ -30,6 +29,18 @@ h1 {
 	justify-content: center;
 	align-items: center;
 	font-family: 'Roboto', sans-serif;
+}
+
+.animate > * {
+  animation-duration: 0.5s;
+  animation-name: animate-fade;
+  animation-delay: 0.5s;
+  animation-fill-mode: backwards;
+}
+
+@keyframes animate-fade {
+  0% { opacity: 0; }
+  100% { opacity: 1; }
 }
 
 .visualization-form {

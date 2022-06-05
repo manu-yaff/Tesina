@@ -55,6 +55,7 @@ def generate_frames(i, n, visualization_config, geo_centroids, map_shape):
             fig.savefig(GENERATED_FRAMES + name)
 
 def generate_video(visualization_config):
+   start = time.time()
 
    map_shape = read_map_shape_file(shape_file)
    populations = read_populations_file(populations_file)
@@ -130,7 +131,6 @@ def generate_video(visualization_config):
        os.makedirs(FRAMES_FOLDER)
 
    ################################
-   start = time.time()
    processes = []
    num_workers = mp.cpu_count()
    step = math.ceil(days / num_workers)
